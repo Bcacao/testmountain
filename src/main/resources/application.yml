@@ -1,0 +1,27 @@
+--- # Start
+
+--- # port
+server:
+  port: 80
+
+--- #spring
+spring:
+  # mvc view resolver
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  # My-SQL DataBase Setting
+  datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://codejk90-database.cnbyf5froxe6.ap-northeast-2.rds.amazonaws.com:3306/mountain
+      username: root
+      password: 12345678
+
+  # fileupload
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 10MB
+      max-file-size: 20MB
