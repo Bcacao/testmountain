@@ -1,10 +1,14 @@
 --- # Start
-
---- # port
+# port
 server:
   port: 80
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 
---- #spring
+--- # spring
 spring:
   # mvc view resolver
   mvc:
