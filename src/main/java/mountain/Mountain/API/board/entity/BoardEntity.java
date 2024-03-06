@@ -8,7 +8,7 @@ import java.sql.Date;
 public class BoardEntity {
     private int board_no;
     private String board_content;
-    private Date DATE;
+    private Date board_time;
     private String member_id;
     private int image_no;
 }
