@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--<settings>
+        &lt;!&ndash;   자동 카멜케이스 스네이크 케이스 변환 설정     &ndash;&gt;
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>-->
+
+    <!--<typeAliases>
+        &lt;!&ndash;  entity 클래스 별칭 설정      &ndash;&gt;
+        <typeAlias alias="CrewBoard" type="mountain.Mountain.API.crewboard.entity.CrewBoardEntity" />
+        <typeAlias alias="Crew" type="mountain.Mountain.API.crew.entity.CrewEntity" />
+
+    </typeAliases>-->
+
+    <mappers>
+        <!-- Mapper XML files -->
+        <mapper resource="mapper/crew.xml" />
+        <mapper resource="mapper/crewboard.xml" />
+    </mappers>
+
+
+</configuration>

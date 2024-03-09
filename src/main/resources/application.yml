@@ -17,7 +17,11 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://codejk90-database.cnbyf5froxe6.ap-northeast-2.rds.amazonaws.com:3306/mountain
       username: root
-      password: 12345678
+      password: bear1234
+
+mybatis:
+  config-location: classpath:mybatis-config.xml
+
 
   # fileupload
   servlet:

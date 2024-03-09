@@ -1,6 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mountain.Mountain.API.crew.dao.CrewDAO">
 
-</beans>
+    <insert id="createCrew">
+        INSERT INTO Crew
+        (crewboard_no)
+        VALUES
+        (#{crewboard_no})
+    </insert>
+
+    <insert id="joinCrew">
+        INSERT INTO Crew
+        (crew_member_id, crewboard_no)
+        VALUES
+        (#{crew_member_id}, #{crewboard_no})
+    </insert>
+
+    <delete id="deleteCrew">
+        DELETE FROM Crew WHERE crew_no = #{crew_no}
+    </delete>
+
+    <select id="countJoin">
+        SELECT
+        COUNT(*)
+        FROM Crew
+        WHERE crewboard_no = #{crewboard_no}
+    </select>
+
+    <select id="checkJoin">
+        SELECT
+        COUNT(*)
+        FROM Crew
+        WHERE crew_member_id = #{crew_member_id} AND crewboard_no = #{crewboard_no}
+    </select>
+
+    <select id="findCrew">
+        SELECT
+        *
+        FROM Crew
+        WHERE crew_member_id = #{crew_member_id} AND crewboard_no = #{crewboard_no}
+    </select>
+
+
+</mapper>

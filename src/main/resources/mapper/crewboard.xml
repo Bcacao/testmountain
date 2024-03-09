@@ -1,6 +1,85 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mountain.Mountain.API.crewboard.dao.CrewboardDAO">
 
-</beans>
+
+    <insert id="createCrewBoard" useGeneratedKeys="true" keyProperty="crewboard_no">
+        INSERT INTO CrewBoard
+        (member_id, crewboard_mountain, crewboard_content)
+        VALUES
+        (#{member_id},#{crewboard_mountain},#{crewboard_content})
+    </insert>
+
+    <select id="findCrewBoard" resultType="mountain.Mountain.API.crewboard.entity.CrewBoardEntity">
+        SELECT
+        *
+        FROM CrewBoard
+        WHERE crewboard_no = #{crewboard_no}
+    </select>
+
+    <update id="updateCrewBoard">
+        UPDATE CrewBoard
+        SET crewboard_mountain = #{crewboard_mountain}, crewboard_content = #{crewboard_content}
+        WHERE crewboard_no = #{crewboard_no}
+    </update>
+
+    <delete id="deleteCrewBoard" parameterType="int">
+        DELETE FROM CrewBoard WHERE crewboard_no = #{crewboard_no}
+    </delete>
+
+    <resultMap id="findAllResultMap" type="mountain.Mountain.API.crewboard.model.FindAllResponseDto">
+        <id property="crewboard_no" column="crewboard_no"/>
+        <result property="member_id" column="member_id"/>
+        <result property="crewboard_mountain" column="crewboard_mountain"/>
+        <result property="crewboard_content" column="crewboard_content"/>
+        <result property="crewboard_time" column="crewboard_time"/>
+        <collection property="crewEntities" ofType="mountain.Mountain.API.crew.entity.CrewEntity">
+            <id property="crew_no" column="crew_no"/>
+            <result property="crew_member_id" column="crew_member_id"/>
+            <result property="crewboard_no" column="crewboard_no"/>
+        </collection>
+    </resultMap>
+
+    <select id="findAllCrewBoard" resultMap="findAllResultMap">
+        SELECT
+        cb.crewboard_no,
+        cb.member_id,
+        cb.crewboard_mountain,
+        cb.crewboard_content,
+        cb.crewboard_time,
+        cm.crew_no,
+        cm.crew_member_id,
+        cm.crewboard_no AS crewboard_no_fk
+        FROM
+        CrewBoard cb
+        LEFT JOIN
+        Crew cm ON cb.crewboard_no = cm.crewboard_no
+        ORDER BY
+        cb.crewboard_time DESC
+    </select>
+
+    <select id="findMyCrewBoard" resultMap="findAllResultMap">
+        SELECT
+        cb.crewboard_no,
+        cb.member_id,
+        cb.crewboard_mountain,
+        cb.crewboard_content,
+        cb.crewboard_time,
+        cm.crew_no,
+        cm.crew_member_id,
+        cm.crewboard_no AS crewboard_no_fk
+        FROM
+        CrewBoard cb
+        LEFT JOIN
+        Crew cm ON cb.crewboard_no = cm.crewboard_no
+        WHERE cb.member_id = #{member_id}
+        ORDER BY
+        cb.crewboard_time DESC
+    </select>
+
+
+
+
+</mapper>
