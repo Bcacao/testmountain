@@ -11,7 +11,7 @@ import java.util.List;
 public interface CrewDAO {
 
     // crew 생성
-    boolean createCrew(int crewboard_no);
+    boolean createCrew(int crewboard_no, String member_id);
     // crew 참가
     boolean joinCrew(CrewEntity crewModel);
     // crew 참가 삭제

@@ -6,9 +6,9 @@
 
     <insert id="createCrew">
         INSERT INTO Crew
-        (crewboard_no)
+        (crewboard_no,crew_member_id)
         VALUES
-        (#{crewboard_no})
+        (#{crewboard_no},#{member_id})
     </insert>
 
     <insert id="joinCrew">

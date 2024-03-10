@@ -32,16 +32,22 @@ public class CrewboardService {
                 .build();
 
         // 쿼리문이 동작하면 true 동작하지 않으면 false
-        crewboardDAO.createCrewBoard(crewboardModel);
+        boolean crewBoardSuccess = crewboardDAO.createCrewBoard(crewboardModel);
+        if (!crewBoardSuccess) {
+            throw new RuntimeException("Failed to create crewBoard.");
+        }
 
         // crew table 생성
-        crewDAO.createCrew(crewboardModel.getCrewboard_no());
+        boolean crewSuccess = crewDAO.createCrew(crewboardModel.getCrewboard_no(),memberId);
+        if (!crewSuccess) {
+            throw new RuntimeException("Failed to create crew.");
+        }
 
 
     }
 
     // 크루 모집방 수정
-    public boolean modifyCrewBoard(UpdateCrewBoardRequestDto dto, String memberId){
+    public void modifyCrewBoard(UpdateCrewBoardRequestDto dto, String memberId){
 
         // 수정할 crewboard를 crewboardNo로 검색
         CrewBoardEntity foundCrewBoard = crewboardDAO.findCrewBoard(dto.getCrewboardNo());
@@ -55,26 +61,29 @@ public class CrewboardService {
 
         // session에서 memberId 와 검색한 crewboard의 memberId가 같은지 확인
         if(foundCrewBoard.getMember_id().equals(memberId)){
-
-            return crewboardDAO.updateCrewBoard(crewboardModel);
+            boolean crewSuccess = crewboardDAO.updateCrewBoard(crewboardModel);
+            if (!crewSuccess) {
+                throw new RuntimeException("Failed to modify crew.");
+            }
         }
-
-        return false;
 
     }
 
     // 크루 모집방 삭제
-    public boolean removeCrewBoard(DeleteCrewBoardRequestDto dto, String memberId){
+    public void removeCrewBoard(DeleteCrewBoardRequestDto dto, String memberId){
 
         // 수정할 crewboard를 crewboardNo로 검색
         CrewBoardEntity foundCrewBoard = crewboardDAO.findCrewBoard(dto.getCrewboardNo());
 
         // session에서 memberId 와 검색한 crewboard의 memberId가 같은지 확인
         if(foundCrewBoard.getMember_id().equals(memberId)){
-            return crewboardDAO.deleteCrewBoard(dto.getCrewboardNo());
+            boolean crewSuccess = crewboardDAO.deleteCrewBoard(dto.getCrewboardNo());
+            if (!crewSuccess) {
+                throw new RuntimeException("Failed to delete crew.");
+            }
         }
 
-        return false;
+
     }
 
     // 크루 모집방 목록 전체

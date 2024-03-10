@@ -11,4 +11,5 @@ public class CreateCrewBoardRequestDto {
     private String crewboardMountain;
     private String crewboardContent;
 
+
 }
